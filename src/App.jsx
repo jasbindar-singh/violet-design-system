@@ -1,7 +1,5 @@
-import "./App.css";
-
 function App() {
-  return <p className="text-xl"></p>;
+  return null;
 }
 
 export default App;
