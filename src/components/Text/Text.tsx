@@ -1,32 +1,36 @@
 import classNames from 'classnames';
 import {
-  FontAlignment,
-  FontWeight,
+  FONT_ALIGNMENT,
+  FONT_WEIGHT,
+  FontAlignmentType,
+  FontWeightType,
   getTypoAlignmentClassName,
   getTypoWeightClassName,
 } from '../../utils/Typography/typography';
 
-enum TextSize {
-  XSMALL = 'xsmall',
-  SMALL = 'small',
-  MEDIUM = 'medium',
-}
+const TEXT_SIZE = {
+  XSMALL: 'xsmall',
+  SMALL: 'small',
+  MEDIUM: 'medium',
+} as const;
+
+type TextSizeType = (typeof TEXT_SIZE)[keyof typeof TEXT_SIZE];
 
 type TextProps = {
-  size: TextSize;
-  weight?: FontWeight;
-  alignment?: FontAlignment;
+  size: TextSizeType;
+  weight?: FontWeightType;
+  alignment?: FontAlignmentType;
   customClassNames?: string;
   children: React.ReactNode;
 };
 
-const getTextSizeClassName = (size: TextSize) => {
+const getTextSizeClassName = (size: TextSizeType) => {
   switch (size) {
-    case TextSize.XSMALL:
+    case TEXT_SIZE.XSMALL:
       return 'text-xs';
-    case TextSize.SMALL:
+    case TEXT_SIZE.SMALL:
       return 'text-sm';
-    case TextSize.MEDIUM:
+    case TEXT_SIZE.MEDIUM:
       return 'text-md';
   }
 };
@@ -34,8 +38,8 @@ const getTextSizeClassName = (size: TextSize) => {
 const Text = (props: TextProps) => {
   const {
     size,
-    weight = FontWeight.NORMAL,
-    alignment = FontAlignment.LEFT,
+    weight = FONT_WEIGHT.NORMAL,
+    alignment = FONT_ALIGNMENT.LEFT,
     customClassNames,
     children,
   } = props;
@@ -44,6 +48,7 @@ const Text = (props: TextProps) => {
     getTextSizeClassName(size),
     getTypoAlignmentClassName(alignment),
     getTypoWeightClassName(weight),
+    'text-black',
     customClassNames
   );
 

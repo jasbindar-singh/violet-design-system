@@ -1,4 +1,4 @@
-import Text from './Text';
+import Text from '.';
 
 const meta = {
   component: Text,

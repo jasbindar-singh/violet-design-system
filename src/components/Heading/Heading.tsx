@@ -1,36 +1,40 @@
 import classNames from 'classnames';
 import {
-  FontAlignment,
-  FontWeight,
+  FONT_ALIGNMENT,
+  FONT_WEIGHT,
+  FontAlignmentType,
+  FontWeightType,
   getTypoAlignmentClassName,
   getTypoWeightClassName,
 } from '../../utils/Typography/typography';
 
-enum HeadingSize {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
-  XLARGE = 'xlarge',
-}
+const HEADING_SIZE = {
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large',
+  XLARGE: 'xlarge',
+} as const;
+
+type HeadingSizeType = (typeof HEADING_SIZE)[keyof typeof HEADING_SIZE];
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span';
-  weight?: FontWeight;
-  size: HeadingSize;
-  alignment?: FontAlignment;
+  weight?: FontWeightType;
+  size: HeadingSizeType;
+  alignment?: FontAlignmentType;
   customClassNames?: string;
   children: React.ReactNode;
 };
 
-const getHeadingSizeClassName = (size: HeadingSize) => {
+const getHeadingSizeClassName = (size: HeadingSizeType) => {
   switch (size) {
-    case HeadingSize.SMALL:
+    case HEADING_SIZE.SMALL:
       return 'text-lg';
-    case HeadingSize.MEDIUM:
+    case HEADING_SIZE.MEDIUM:
       return 'text-xl';
-    case HeadingSize.LARGE:
+    case HEADING_SIZE.LARGE:
       return 'text-2xl';
-    case HeadingSize.XLARGE:
+    case HEADING_SIZE.XLARGE:
       return 'text-3xl';
   }
 };
@@ -38,9 +42,9 @@ const getHeadingSizeClassName = (size: HeadingSize) => {
 const Heading = (props: HeadingProps) => {
   const {
     as = 'h1',
-    weight = FontWeight.NORMAL,
+    weight = FONT_WEIGHT.NORMAL,
     size,
-    alignment = FontAlignment.LEFT,
+    alignment = FONT_ALIGNMENT.LEFT,
     customClassNames,
     children,
   } = props;
@@ -50,6 +54,7 @@ const Heading = (props: HeadingProps) => {
     getHeadingSizeClassName(size),
     getTypoAlignmentClassName(alignment),
     getTypoWeightClassName(weight),
+    'text-black',
     customClassNames
   );
 
