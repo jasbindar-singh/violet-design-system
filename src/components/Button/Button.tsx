@@ -106,7 +106,7 @@ const Button = (props: ButtonProps) => {
     return (
       <button
         className={buttonClassNames}
-        onClick={disabled ? () => {} : onClick}
+        onClick={disabled || isLoading ? () => {} : onClick}
         type={type}
         disabled={disabled}
       >
